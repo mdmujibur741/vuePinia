@@ -1,9 +1,46 @@
 <template>
-  <div class="about">
-    <h1 class="bg-blue-700 text-white text-xl font-semibold px-2 py-1 ">This is an about page</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur beatae quidem quae quod nihil. Saepe ex officiis, ab rerum deleniti excepturi quas. Sunt earum consequuntur voluptatibus nulla quibusdam a hic facere neque nisi ipsam quam fuga voluptate excepturi, pariatur tempora nihil? Debitis, sit qui. Deserunt consequuntur optio odit qui quibusdam eum culpa. Adipisci id quod laboriosam consectetur voluptatem vero deserunt, fuga eaque quia sint cupiditate dolore voluptatum, dolorem veritatis ipsa eius inventore ullam. Eligendi quae debitis quam dicta dolor necessitatibus similique expedita, asperiores, molestiae quas nulla rerum recusandae blanditiis inventore animi pariatur ipsam libero nam dolorum quidem! Modi debitis a doloremque perferendis quia optio, earum eveniet reprehenderit libero aliquam officia sit ab possimus provident iusto soluta, numquam corrupti. Ipsam enim neque necessitatibus culpa quos ut, ex assumenda aut facere. Necessitatibus earum quas laborum ipsum odio, corrupti officiis doloribus adipisci? Magni asperiores explicabo quidem deleniti incidunt! Vel laboriosam magnam quia consectetur illum molestias sunt. Architecto possimus officiis tempora odio. Animi placeat incidunt tenetur deleniti recusandae voluptatum consectetur ipsam! Dignissimos repellendus officiis suscipit laborum ipsum temporibus adipisci, hic libero, ex nemo itaque delectus ipsam minus vel, maiores quis dicta illo tempore ea rem eaque magnam! Similique mollitia sit eaque omnis soluta veritatis corrupti doloremque laborum, dignissimos quo quae sequi quod tenetur illum nam voluptatibus libero! Voluptate modi ipsam natus consequuntur, vel maiores rem laudantium tenetur incidunt facilis rerum dicta! Facilis, rem possimus! Aliquam provident aliquid ducimus placeat non quisquam quasi eos illum tempore quam impedit, repellendus qui debitis voluptatibus sapiente! Iusto placeat soluta natus ducimus perspiciatis, quam, obcaecati aperiam pariatur debitis rem corrupti voluptate voluptates! Animi saepe sapiente a voluptatum excepturi quae ipsam accusantium quam dignissimos asperiores quibusdam obcaecati, fugit perspiciatis, minima odio voluptates quis eius delectus consequuntur! Voluptatem ullam dolorem recusandae doloremque deserunt mollitia aliquam. Nihil magni obcaecati eum eligendi, explicabo doloribus possimus atque earum deleniti soluta sunt, libero quos cupiditate repudiandae labore culpa consequuntur, saepe impedit? Officiis delectus natus dicta cumque consectetur nemo quod, tempora temporibus quae, quas reiciendis praesentium voluptatum eos voluptates dolorum repudiandae, aspernatur fugit veritatis sed eius! Quibusdam quaerat pariatur beatae odit eveniet animi tenetur rerum, facere, earum ea voluptate cumque. Voluptatibus, placeat. Qui veritatis praesentium repellendus numquam delectus unde distinctio temporibus atque minus quae fuga tempora pariatur laborum, quo a obcaecati, quasi reprehenderit. Veniam obcaecati in unde fugit iusto. Atque minus facilis quisquam possimus tempore voluptatem officiis dolor voluptatibus ipsum animi eum autem sint similique, non cum esse dolores quidem iusto earum labore iste dolore eveniet molestias provident! Dicta libero at quae porro inventore minus molestiae dolore consequuntur voluptatem quidem cumque quo nesciunt facere cupiditate, repellat doloribus dolorum! Consequuntur corrupti iure vel iste nobis, porro animi nesciunt, tempore quae modi quidem ut velit. Tempore ipsum earum, in laboriosam ea eos voluptatem molestias libero magnam perspiciatis voluptatibus atque recusandae, minus laborum iusto similique est blanditiis! Tempore ut officiis voluptate rem aliquam alias quo, harum ex, necessitatibus sint aut quam delectus culpa hic aperiam non. Nihil aut maiores laudantium quasi quibusdam reprehenderit accusamus facilis eveniet? Quia, corporis qui dolorum odit neque quae reiciendis. Dolore temporibus magni nam reiciendis provident. Eveniet sint corrupti temporibus quibusdam laudantium pariatur laboriosam ipsa aspernatur, ipsam vero, doloribus dolores impedit voluptatem amet vel quis illo debitis et! Quos impedit consequuntur itaque similique eos quisquam dolorum eaque expedita inventore atque tenetur veniam asperiores dicta autem, dolor illo, quae ut dolore sapiente ab, obcaecati quo fuga a. Voluptatem explicabo ipsa sequi temporibus a, itaque fugiat nostrum veritatis natus ad doloremque possimus. Nulla deserunt aspernatur ipsum pariatur nesciunt nobis cupiditate neque iure maiores modi, repellat nisi in, minima dolorem eius mollitia necessitatibus harum, laborum doloribus eos iste.
-          </p>
+  <div class="about pt-6 bg-gray-100 min-h-[100vh]">
+    <h1 class="bg-blue-700 text-white max-w-3xl mx-auto text-xl my-3 font-semibold px-2 py-1 ">This is an about page</h1>
+         <form @submit.prevent="submit" method="post" class="max-w-3xl text-black mx-auto p-8  shadow-2xl">
+          
+          <div class="mb-3">
+            <label for="" class="mb-2" >Id</label>
+            <input type="text" v-model="form.id" class="w-full px-2 py-1  border">
+          </div>
+
+          <div class="mb-3">
+              <label for="" class="mb-2" >Title</label>
+              <input type="text" v-model="form.title" class="w-full px-2 py-1  border">
+            </div>
+
+           <div class="text-center">
+            <button class="w-18 mx-auto bg-blue-700 text-white px-4 py-1 rounded-md">Submit</button>
+           </div>
+         </form>
   </div>
 </template>
+
+<script setup>
+   import { reactive, ref } from 'vue';
+   import {useTaskStore} from '../stores/TaskStore.js';
+
+   const taskStore = useTaskStore();
+ 
+   const form = reactive({
+          id : '',
+          title : '',
+          isFav : false,
+   })
+
+
+   const submit = () => {
+          taskStore.addTask(form)
+   }
+
+
+function success(){
+    form.id = '';
+    form.title = '';
+}
+</script>
 
